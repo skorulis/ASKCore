@@ -3,7 +3,7 @@
 import Swinject
 import Foundation
 
-final class GenericFactory: PContainerFactory {
+public final class GenericFactory: PContainerFactory {
     
     public let container: Container
     
