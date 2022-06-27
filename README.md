@@ -1,3 +1,3 @@
-# ASSwiftUI
+# ASKCore
 
-A description of this package.
+Core classes for building apps
