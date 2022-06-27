@@ -21,7 +21,7 @@ open class IOCService: PContainerFactory {
         }
     }
     
-    var factory: GenericFactory {
+    public var factory: GenericFactory {
         return resolve(GenericFactory.self)
     }
     

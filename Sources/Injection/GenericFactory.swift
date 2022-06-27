@@ -11,7 +11,7 @@ final class GenericFactory: PContainerFactory {
         self.container = Container()
     }
     
-    init(container: Container) {
+    public init(container: Container) {
         self.container = container
     }
     
