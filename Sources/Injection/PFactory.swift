@@ -12,3 +12,10 @@ public protocol PFactory {
         arguments arg1: Arg1, _ arg2: Arg2
     ) -> Service
 }
+
+public extension PFactory {
+    
+    func resolve<Service>() -> Service {
+        return self.resolve(Service.self)
+    }
+}
