@@ -8,9 +8,11 @@ open class HTTPService {
     
     private let baseURL: String?
     private let urlSession: URLSession
+    private let logger: HTTPLogger?
     
-    public init(baseURL: String? = nil) {
+    public init(baseURL: String? = nil, logger: HTTPLogger?) {
         self.baseURL = baseURL
+        self.logger = logger
         urlSession = URLSession(configuration: .default)
     }
     
@@ -23,10 +25,12 @@ public extension HTTPService {
     func execute<R: HTTPRequest>(request: R) async throws -> R.ResponseType {
         var urlRequest = try getURLRequest(req: request)
         modify(request: &urlRequest)
+        logger?.log(request: urlRequest, level: .full)
         let result = try await urlSession.data(for: urlRequest)
         if let status = (result.1 as? HTTPURLResponse)?.statusCode, status >= 400 {
             throw URLError(.badServerResponse)
         }
+        logger?.log(response: result.1, data: result.0, level: .full)
         return try request.decode(data: result.0, response: result.1)
     }
     
