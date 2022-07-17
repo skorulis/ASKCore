@@ -16,9 +16,10 @@ open class IOCService: PContainerFactory {
     public init() {
         container = Container()
         
-        container.register(GenericFactory.self) { [unowned self] res in
+        let fac = container.register(GenericFactory.self) { [unowned self] res in
             return GenericFactory(container: self.container)
         }
+        container.forward(PFactory.self, to: fac)
     }
     
     public var factory: GenericFactory {
