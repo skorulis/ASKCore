@@ -18,4 +18,8 @@ public extension PFactory {
     func resolve<Service>() -> Service {
         return self.resolve(Service.self)
     }
+    
+    func resolveAll<T>(type: T.Type) -> [T] {
+        self.resolve([T].self)
+    }
 }

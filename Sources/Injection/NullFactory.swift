@@ -2,6 +2,7 @@
 
 import Foundation
 
+/// Factory which cannot resolve any objects. Used as a placeholder to prevent the need for options
 public struct NullFactory: PFactory {
     public func resolve<Service>(_ serviceType: Service.Type) -> Service {
         fatalError("Cannot resolve from NullFactory")
