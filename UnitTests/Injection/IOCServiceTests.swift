@@ -6,7 +6,7 @@ import XCTest
 
 final class IOCServiceTests: XCTestCase {
     
-    private let sut = IOCService()
+    private let sut = IOCService(purpose: .testing)
     
     func test_factory() {
         _ = sut.factory // Nothing to test

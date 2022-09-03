@@ -7,6 +7,19 @@ public protocol PModule {
     
     init()
     func register(container: Container, purpose: IOCPurpose)
-    var dependencies: [PModule.Type] { get }
+    static var dependencies: [PModule.Type] { get }
+    
+}
+
+public extension PModule {
+    
+    static func ioc(purpose: IOCPurpose = .testing) -> IOCService {
+        let ioc = IOCService(purpose: purpose)
+        let registration = ioc.resolve(ModuleRegistrationService.self)
+        registration.register(container: ioc.container,
+                              purpose: purpose,
+                              module: self)
+        return ioc
+    }
     
 }

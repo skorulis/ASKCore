@@ -22,6 +22,9 @@ open class IOCService: PContainerFactory {
             return GenericFactory(container: self.container)
         }
         container.forward(PFactory.self, to: fac)
+        
+        container.autoregister(ModuleRegistrationService.self, initializer: ModuleRegistrationService.init)
+            .inObjectScope(.container)
     }
     
     public var factory: GenericFactory {
