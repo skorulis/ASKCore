@@ -23,5 +23,9 @@ extension InMemoryDefaults: PKeyValueStore {
         }
     }
     
+    public func removeObject(forKey: String) {
+        storage.removeValue(forKey: forKey)
+    }
+    
     
 }

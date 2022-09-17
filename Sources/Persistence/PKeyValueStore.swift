@@ -6,6 +6,7 @@ public protocol PKeyValueStore {
     
     func data(forKey: String) -> Data?
     func set(_ value: Any?, forKey: String)
+    func removeObject(forKey: String)
     
 }
 
