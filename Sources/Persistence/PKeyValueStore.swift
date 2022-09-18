@@ -19,6 +19,14 @@ public extension PKeyValueStore {
         set(data, forKey: forKey)
     }
     
+    func setOrClear<T: Codable>(codable: T?, forKey: String) throws {
+        if let codable {
+            try set(codable: codable, forKey: forKey)
+        } else {
+            removeObject(forKey: forKey)
+        }
+    }
+    
     func codable<T: Codable>(forKey: String, type: T.Type = T.self) throws -> T? {
         guard let data = data(forKey: forKey) else {
             return nil
