@@ -16,6 +16,10 @@ open class HTTPService {
         urlSession = URLSession(configuration: .default)
     }
     
+    open func modify(request: inout URLRequest) throws {
+        // Default does nothing
+    }
+    
 }
 
 // MARK: - Logic
@@ -24,7 +28,7 @@ public extension HTTPService {
     
     func execute<R: HTTPRequest>(request: R) async throws -> R.ResponseType {
         var urlRequest = try getURLRequest(req: request)
-        modify(request: &urlRequest)
+        try modify(request: &urlRequest)
         logger?.log(request: urlRequest, level: .full)
         let result = try await urlSession.data(for: urlRequest)
         if let status = (result.1 as? HTTPURLResponse)?.statusCode, status >= 400 {
@@ -32,10 +36,6 @@ public extension HTTPService {
         }
         logger?.log(response: result.1, data: result.0, level: .full)
         return try request.decode(data: result.0, response: result.1)
-    }
-    
-    func modify(request: inout URLRequest) {
-        // Default does nothing
     }
     
     private func getURLRequest<R: HTTPRequest>(req: R) throws -> URLRequest {

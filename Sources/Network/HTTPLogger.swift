@@ -5,10 +5,10 @@ import os.log
 
 public struct HTTPLogger {
     
-    var level: Level = .errors
+    var level: Level
     
-    public init() {
-        
+    public init(level: Level = .errors) {
+        self.level = level
     }
     
     func enable() -> HTTPLogger {
@@ -55,7 +55,7 @@ HEADERS:\n TODO
 }
 
 // MARK: - Inner Types
-extension HTTPLogger {
+public extension HTTPLogger {
     enum Level: String, Equatable {
         case off
         case errors
