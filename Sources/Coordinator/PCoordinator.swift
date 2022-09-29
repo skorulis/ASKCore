@@ -35,6 +35,7 @@ public extension PCoordinator {
     }
     
     func pop() {
+        guard !navPath.isEmpty else { return }
         navPath.removeLast()
     }
     
