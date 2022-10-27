@@ -15,8 +15,8 @@ public struct CoordinatorView<T: PCoordinator>: View {
     
     public var body: some View {
         NavigationStack(path: $coordinator.navPath) {
-            coordinator.root.render(coordinator: coordinator)
-                .navigationDestination(for: T.PathType.self) { path in
+            coordinator.root.render(in: coordinator)
+                .navigationDestination(for: PathWrapper.self) { path in
                     path.render(coordinator: coordinator)
                 }
         }

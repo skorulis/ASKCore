@@ -4,34 +4,24 @@ import Foundation
 import SwiftUI
 
 @available(iOS 16, *)
-public protocol CoordinatorPath: Hashable {
-    associatedtype CoordinatorType: PCoordinator where CoordinatorType.PathType == Self
-    associatedtype ViewType: View
-    
-    func render(coordinator: CoordinatorType) -> ViewType
-    
-    var id: String { get }
-}
-
-@available(iOS 16, *)
 public protocol PCoordinator: ObservableObject {
-    associatedtype PathType: CoordinatorPath where PathType.CoordinatorType == Self
+    // associatedtype PathType: CoordinatorPath where PathType.CoordinatorType == Self
     
     var navPath: NavigationPath { get set }
     var presented: PresentedCoordinator<Self>? { get set }
     var shouldDismiss: Bool { get set }
-    var root: PathType { get }
+    var root: any CoordinatorPath { get }
     
     /// Create a child coordinator for presentation
-    func child(path: PathType) -> Self
+    func child(path: any CoordinatorPath) -> Self
     
 }
 
 @available(iOS 16, *)
 public extension PCoordinator {
     
-    func push(_ p: PathType) {
-        navPath.append(p)
+    func push(_ p: any CoordinatorPath) {
+        navPath.append(PathWrapper(path: p))
     }
     
     func pop() {
@@ -39,7 +29,7 @@ public extension PCoordinator {
         navPath.removeLast()
     }
     
-    func present(_ path: PathType, style: PresentationStyle) {
+    func present(_ path: any CoordinatorPath, style: PresentationStyle) {
         let coordinator = child(path: path)
         self.presented = PresentedCoordinator(coordinator: coordinator, style: style)
     }
