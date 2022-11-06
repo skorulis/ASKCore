@@ -8,15 +8,20 @@ public final class StandardCoordinator: PCoordinator, ObservableObject {
     @Published public var navPath = NavigationPath()
     @Published public var presented: PresentedCoordinator<StandardCoordinator>?
     @Published public var shouldDismiss: Bool = false
-    public let root: any CoordinatorPath
+    public let root: PathWrapper
     let factory: PFactory
     
     public init(root: any CoordinatorPath, factory: PFactory) {
+        self.root = PathWrapper(path: root, navigation: .none)
+        self.factory = factory
+    }
+    
+    public init(root: PathWrapper, factory: PFactory) {
         self.root = root
         self.factory = factory
     }
     
-    public func child(path: CoordinatorPath) -> StandardCoordinator {
+    public func child(path: PathWrapper) -> StandardCoordinator {
         return StandardCoordinator(root: path, factory: factory)
     }
     

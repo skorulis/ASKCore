@@ -38,24 +38,31 @@ extension BoundCoordinatorPath {
     
 }
 
-struct PathWrapper: Hashable {
+public struct PathWrapper: Hashable {
     
     private let path: any CoordinatorPath
+    let navigation: NavigationType
     
-    init(path: any CoordinatorPath) {
+    init(path: any CoordinatorPath, navigation: NavigationType) {
         self.path = path
+        self.navigation = navigation
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(path.id)
     }
     
-    static func == (lhs: PathWrapper, rhs: PathWrapper) -> Bool {
+    public static func == (lhs: PathWrapper, rhs: PathWrapper) -> Bool {
         return lhs.path.id == rhs.path.id
     }
     
     func render(coordinator: any PCoordinator) -> some View {
         return path.render(in: coordinator)
+            .environment(\.navigationType, navigation)
+    }
+    
+    var id: String {
+        return path.id
     }
     
 }

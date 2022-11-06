@@ -15,11 +15,12 @@ public struct CoordinatorView<T: PCoordinator>: View {
     
     public var body: some View {
         NavigationStack(path: $coordinator.navPath) {
-            coordinator.root.render(in: coordinator)
+            coordinator.root.render(coordinator: coordinator)
                 .navigationDestination(for: PathWrapper.self) { path in
                     path.render(coordinator: coordinator)
                 }
         }
+        .environment(\.coordinator, coordinator)
         .onChange(of: coordinator.shouldDismiss) { value in
             if value {
                 dismiss()

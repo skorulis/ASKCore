@@ -10,10 +10,10 @@ public protocol PCoordinator: ObservableObject {
     var navPath: NavigationPath { get set }
     var presented: PresentedCoordinator<Self>? { get set }
     var shouldDismiss: Bool { get set }
-    var root: any CoordinatorPath { get }
+    var root: PathWrapper { get }
     
     /// Create a child coordinator for presentation
-    func child(path: any CoordinatorPath) -> Self
+    func child(path: PathWrapper) -> Self
     
 }
 
@@ -21,7 +21,7 @@ public protocol PCoordinator: ObservableObject {
 public extension PCoordinator {
     
     func push(_ p: any CoordinatorPath) {
-        navPath.append(PathWrapper(path: p))
+        navPath.append(PathWrapper(path: p, navigation: .push))
     }
     
     func pop() {
@@ -30,6 +30,7 @@ public extension PCoordinator {
     }
     
     func present(_ path: any CoordinatorPath, style: PresentationStyle) {
+        let path = PathWrapper(path: path, navigation: .present)
         let coordinator = child(path: path)
         self.presented = PresentedCoordinator(coordinator: coordinator, style: style)
     }
