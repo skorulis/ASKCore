@@ -2,6 +2,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 @available(iOS 16, *)
 public protocol PCoordinator: ObservableObject {
@@ -27,6 +28,18 @@ public extension PCoordinator {
     func pop() {
         guard !navPath.isEmpty else { return }
         navPath.removeLast()
+    }
+    
+    func popToRoot() {
+        // Fix an error with the animation
+        let animation = CATransition()
+        animation.isRemovedOnCompletion = true
+        animation.type = .moveIn
+        animation.subtype = .fromLeft
+        animation.duration = 0.3
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        UIApplication.shared.keyWindow!.layer.add(animation, forKey: nil)
+        navPath.removeLast(navPath.count)
     }
     
     func present(_ path: any CoordinatorPath, style: PresentationStyle) {

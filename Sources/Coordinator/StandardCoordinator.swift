@@ -12,7 +12,7 @@ public final class StandardCoordinator: PCoordinator, ObservableObject {
     let factory: PFactory
     
     public init(root: any CoordinatorPath, factory: PFactory) {
-        self.root = PathWrapper(path: root, navigation: .none)
+        self.root = PathWrapper(path: root, navigation: nil)
         self.factory = factory
     }
     

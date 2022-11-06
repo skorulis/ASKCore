@@ -3,16 +3,6 @@
 import Foundation
 import SwiftUI
 
-/*@available(iOS 16, *)
-public protocol CoordinatorPath: Hashable {
-    associatedtype CoordinatorType: PCoordinator //where CoordinatorType.PathType == Self
-    associatedtype ViewType: View
-    
-    func render(coordinator: CoordinatorType) -> ViewType
-    
-    var id: String { get }
-}*/
-
 public protocol CoordinatorPath {
     
     func render(in coordinator: any PCoordinator) -> AnyView
@@ -41,9 +31,9 @@ extension BoundCoordinatorPath {
 public struct PathWrapper: Hashable {
     
     private let path: any CoordinatorPath
-    let navigation: NavigationType
+    let navigation: NavigationType?
     
-    init(path: any CoordinatorPath, navigation: NavigationType) {
+    init(path: any CoordinatorPath, navigation: NavigationType?) {
         self.path = path
         self.navigation = navigation
     }

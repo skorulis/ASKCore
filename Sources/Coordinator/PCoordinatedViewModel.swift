@@ -28,6 +28,15 @@ open class CoordinatedViewModel: PCoordinatedViewModel {
         coordinator.shouldDismiss = true
     }
     
+    public func dismiss(navType: NavigationType) {
+        switch navType {
+        case .push:
+            coordinator.popToRoot()
+        case .present:
+            dismiss()
+        }
+    }
+    
     open func onCoordinatorSet() { /* Overridden in children */ }
     
 }

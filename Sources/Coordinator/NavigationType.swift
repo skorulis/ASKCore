@@ -6,7 +6,6 @@ import SwiftUI
 /// How this was presented
 public enum NavigationType {
     
-    case none
     case push
     case present
     
@@ -17,12 +16,12 @@ public enum NavigationType {
 }
 
 public struct NavigationTypeKey: EnvironmentKey {
-    public static var defaultValue: NavigationType = .none
+    public static var defaultValue: NavigationType? = nil
 }
 
 public extension EnvironmentValues {
     
-    var navigationType: NavigationType {
+    var navigationType: NavigationType? {
         get { self[NavigationTypeKey.self] }
         set { self[NavigationTypeKey.self] = newValue }
     }
