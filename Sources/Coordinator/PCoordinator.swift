@@ -38,7 +38,13 @@ public extension PCoordinator {
         animation.subtype = .fromLeft
         animation.duration = 0.3
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        UIApplication.shared.keyWindow!.layer.add(animation, forKey: nil)
+        let keyWindow = UIApplication.shared.connectedScenes
+                .filter({$0.activationState == .foregroundActive})
+                .compactMap({$0 as? UIWindowScene})
+                .first?.windows
+                .filter({$0.isKeyWindow}).first
+        
+        keyWindow?.layer.add(animation, forKey: nil)
         navPath.removeLast(navPath.count)
     }
     
