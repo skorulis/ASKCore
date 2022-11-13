@@ -25,6 +25,10 @@ open class IOCService: PContainerFactory {
         
         container.autoregister(ModuleRegistrationService.self, initializer: ModuleRegistrationService.init)
             .inObjectScope(.container)
+        
+        container.autoregister(PErrorService.self, initializer: ErrorService.init)
+            .inObjectScope(.container)
+        container.autoregister(ErrorPresentationManager.self, initializer: ErrorPresentationManager.init)
     }
     
     public var factory: GenericFactory {
