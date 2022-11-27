@@ -38,6 +38,13 @@ public final class StandardCoordinator: PCoordinator, ObservableObject {
         navPath.removeLast()
     }
     
+    public func present(_ path: any CoordinatorPath, style: PresentationStyle) {
+        let wrapper = PathWrapper(path: path, navigation: .present)
+        analytics?.log(event: CoordinatorEvent.present(path))
+        let coordinator = child(path: wrapper)
+        self.presented = PresentedCoordinator(coordinator: coordinator, style: style)
+    }
+    
 }
 
 extension StandardCoordinator: PFactory {

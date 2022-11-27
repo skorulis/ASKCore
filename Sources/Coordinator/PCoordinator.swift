@@ -18,6 +18,7 @@ public protocol PCoordinator: ObservableObject {
     
     func push(_ path: any CoordinatorPath)
     func pop()
+    func present(_ path: any CoordinatorPath, style: PresentationStyle)
     
 }
 
@@ -40,12 +41,6 @@ public extension PCoordinator {
         
         keyWindow?.layer.add(animation, forKey: nil)
         navPath.removeLast(navPath.count)
-    }
-    
-    func present(_ path: any CoordinatorPath, style: PresentationStyle) {
-        let path = PathWrapper(path: path, navigation: .present)
-        let coordinator = child(path: path)
-        self.presented = PresentedCoordinator(coordinator: coordinator, style: style)
     }
     
 }
