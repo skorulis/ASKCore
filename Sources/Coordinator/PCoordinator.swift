@@ -16,19 +16,13 @@ public protocol PCoordinator: ObservableObject {
     /// Create a child coordinator for presentation
     func child(path: PathWrapper) -> Self
     
+    func push(_ path: any CoordinatorPath)
+    func pop()
+    
 }
 
 @available(iOS 16, *)
 public extension PCoordinator {
-    
-    func push(_ p: any CoordinatorPath) {
-        navPath.append(PathWrapper(path: p, navigation: .push))
-    }
-    
-    func pop() {
-        guard !navPath.isEmpty else { return }
-        navPath.removeLast()
-    }
     
     func popToRoot() {
         // Fix an error with the animation

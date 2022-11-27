@@ -8,6 +8,7 @@ public final class StandardCoordinator: PCoordinator, ObservableObject {
     @Published public var navPath = NavigationPath()
     @Published public var presented: PresentedCoordinator<StandardCoordinator>?
     @Published public var shouldDismiss: Bool = false
+    public var analytics: PAnalyticsService?
     public let root: PathWrapper
     let factory: PFactory
     
@@ -22,7 +23,19 @@ public final class StandardCoordinator: PCoordinator, ObservableObject {
     }
     
     public func child(path: PathWrapper) -> StandardCoordinator {
-        return StandardCoordinator(root: path, factory: factory)
+        let child = StandardCoordinator(root: path, factory: factory)
+        child.analytics = self.analytics
+        return child
+    }
+    
+    public func push(_ p: any CoordinatorPath) {
+        analytics?.log(event: CoordinatorEvent.push(p))
+        navPath.append(PathWrapper(path: p, navigation: .push))
+    }
+    
+    public func pop() {
+        guard !navPath.isEmpty else { return }
+        navPath.removeLast()
     }
     
 }
