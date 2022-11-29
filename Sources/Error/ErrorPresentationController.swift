@@ -1,5 +1,7 @@
 //  Created by Alexander Skorulis on 29/10/2022.
 
+#if canImport(UIKit)
+
 import Combine
 import Foundation
 import UIKit
@@ -78,3 +80,5 @@ public final class ErrorPresentationManager {
         }   
     }
 }
+
+#endif

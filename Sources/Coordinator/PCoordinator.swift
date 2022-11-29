@@ -2,7 +2,9 @@
 
 import Foundation
 import SwiftUI
+#if canImport(UIKit)
 import UIKit
+#endif
 
 @available(iOS 16, *)
 public protocol PCoordinator: ObservableObject {
@@ -33,6 +35,7 @@ public extension PCoordinator {
         animation.subtype = .fromLeft
         animation.duration = 0.3
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+#if canImport(UIKit)
         let keyWindow = UIApplication.shared.connectedScenes
                 .filter({$0.activationState == .foregroundActive})
                 .compactMap({$0 as? UIWindowScene})
@@ -40,6 +43,7 @@ public extension PCoordinator {
                 .filter({$0.isKeyWindow}).first
         
         keyWindow?.layer.add(animation, forKey: nil)
+#endif
         navPath.removeLast(navPath.count)
     }
     

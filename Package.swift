@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "ASKCore",
     platforms: [
-        .macOS(.v12),
+        .macOS(.v13),
         .iOS(.v16)
     ],
     products: [

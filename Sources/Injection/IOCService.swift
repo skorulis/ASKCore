@@ -1,9 +1,4 @@
-//
-//  IOC.swift
-//  Magic
-//
 //  Created by Alexander Skorulis on 28/8/21.
-//
 
 import Foundation
 import Swinject
@@ -28,7 +23,9 @@ open class IOCService: PContainerFactory {
         
         container.autoregister(PErrorService.self, initializer: ErrorService.init)
             .inObjectScope(.container)
+#if canImport(UIKit)
         container.autoregister(ErrorPresentationManager.self, initializer: ErrorPresentationManager.init)
+#endif
     }
     
     public var factory: GenericFactory {

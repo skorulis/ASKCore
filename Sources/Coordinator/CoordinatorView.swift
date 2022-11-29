@@ -26,9 +26,11 @@ public struct CoordinatorView<T: PCoordinator>: View {
                 dismiss()
             }
         }
+#if canImport(UIKit)
         .fullScreenCover(item: binding(style: .fullScreen)) { presented in
             CoordinatorView(coordinator: presented.coordinator)
         }
+#endif
         .sheet(item: binding(style: .sheet)) { presented in
             CoordinatorView(coordinator: presented.coordinator)
         }
