@@ -6,4 +6,12 @@ public extension Date {
     var startOfMonth: Date {
         return Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: self)))!
     }
+    
+    /// First monday of the week
+    var startOfWeek: Date {
+        var calendar = Calendar.current
+        calendar.firstWeekday = 2
+        return calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: calendar.startOfDay(for: self)))!
+    }
+    
 }
