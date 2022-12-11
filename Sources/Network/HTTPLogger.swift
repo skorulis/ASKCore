@@ -26,7 +26,7 @@ public struct HTTPLogger {
 ----REQUEST BEGIN----
 \(request.httpMethod ?? "-"): \(request.url?.absoluteString ?? "-")
 Body:\n\(dataText(data: request.httpBody, isJSON: isJSON))
-Headers:\n TODO
+Headers:\n\(headerText(headers: request.allHTTPHeaderFields))
 ----REQUEST END------
 """
         )
@@ -46,7 +46,7 @@ Headers:\n TODO
 URL: \(response.url?.absoluteString ?? "-")
 Status: \(statusCode)
 Body:\n\(dataText(data: data, isJSON: isJSON))
-HEADERS:\n TODO
+HEADERS:\n\(headerText(headers: headers))
 ---RESPONSE END----
 """
         )
@@ -85,7 +85,13 @@ extension HTTPLogger {
         return String(data: data, encoding: .utf8) ?? "ERROR"
     }
     
-    
+    private func headerText(headers: [AnyHashable: Any]?) -> String {
+        guard let headers else { return "" }
+        return headers.map { (key, value) in
+            return "\(key): \(value)"
+        }
+        .joined(separator: "\n")
+    }
     
     private func isJSONContent(headers: [AnyHashable: Any]?) -> Bool {
         let contentType  = headers?["Content-Type"] as? String
