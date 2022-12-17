@@ -18,9 +18,6 @@ open class IOCService: PContainerFactory {
         }
         container.forward(PFactory.self, to: fac)
         
-        container.autoregister(ModuleRegistrationService.self, initializer: ModuleRegistrationService.init)
-            .inObjectScope(.container)
-        
         container.autoregister(PErrorService.self, initializer: ErrorService.init)
             .inObjectScope(.container)
 #if canImport(UIKit)
