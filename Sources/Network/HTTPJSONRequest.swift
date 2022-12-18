@@ -9,6 +9,7 @@ public struct HTTPJSONRequest<ResponseType>: HTTPRequest where ResponseType: Dec
     public var body: Data?
     public var headers: [String: String] = ["Accept": "application/json"]
     public var params: [String: String] = [:]
+    public var decoder: JSONDecoder = JSONDecoder()
     
     public init(endpoint: String) {
         self.endpoint = endpoint
@@ -31,6 +32,6 @@ public struct HTTPJSONRequest<ResponseType>: HTTPRequest where ResponseType: Dec
     }
     
     public func decode(data: Data, response: URLResponse) throws -> ResponseType {
-        return try JSONDecoder().decode(ResponseType.self, from: data)
+        return try decoder.decode(ResponseType.self, from: data)
     }
 }
