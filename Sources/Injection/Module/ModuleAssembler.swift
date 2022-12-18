@@ -41,7 +41,7 @@ private final class DependencyBuilder {
                 continue
             }
             guard let autoType = dep as? AutoModuleAssembly.Type else {
-                fatalError("Found non auto dependency that is not already registered")
+                fatalError("Found non auto dependency: \(dep) that is not already registered")
             }
             buildTree(module: autoType.init())
         }
@@ -51,7 +51,16 @@ private final class DependencyBuilder {
     func contains(module: ModuleAssembly.Type) -> Bool {
         let allModules = assemblies + inputModules
         return allModules.contains { mod in
-            return type(of: mod) == module
+            if type(of: mod) == module {
+                return true
+            }
+            if module is AbstractModuleAssembly.Type,
+               let impl = mod as? ConcreteModuleAssembly,
+               type(of: impl).implements == module
+            {
+                return true
+            }
+            return false
         }
     }
     

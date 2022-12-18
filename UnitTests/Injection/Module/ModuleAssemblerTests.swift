@@ -9,8 +9,7 @@ final class ModuleAssemblerTests: XCTestCase {
     
     func test_auto_assembler() {
         let resolver = Assembly1().assembled().resolver
-        let service1 = resolver.resolve(Service1.self)
-        XCTAssertNotNil(service1)
+        XCTAssertNotNil(resolver.resolve(Service1.self))
     }
     
     func test_non_auto_assembler() {
@@ -18,8 +17,12 @@ final class ModuleAssemblerTests: XCTestCase {
             Assembly3(),
             Assembly1()
         ]).resolver
-        let service1 = resolver.resolve(Service1.self)
-        XCTAssertNotNil(service1)
+        XCTAssertNotNil(resolver.resolve(Service1.self))
+    }
+    
+    func test_abstract_assembly() {
+        let resolver = ModuleAssembler(moduleType: Assembly6.self).resolver
+        XCTAssertNotNil(resolver.resolve(Service3.self))
     }
 }
 
@@ -58,6 +61,28 @@ private struct Assembly3: ModuleAssembly {
     }
 }
 
+private struct Assembly4: AbstractModuleAssembly {
+    static var dependencies: [ASKCore.ModuleAssembly.Type] = []
+}
+private struct Assembly5: ConcreteModuleAssembly, AutoModuleAssembly {
+    static let implements: any AbstractModuleAssembly.Type = Assembly4.self
+    
+    static var dependencies: [ModuleAssembly.Type] { [] }
+    
+    func assemble(container: Container) {
+        container.autoregister(Service3.self, initializer: Service3.init)
+    }
+}
+
+private struct Assembly6: AutoModuleAssembly {
+    
+    static var dependencies: [ModuleAssembly.Type] {
+        return [Assembly4.self]
+    }
+    
+    func assemble(container: Swinject.Container) {}
+}
+
 private struct Service1 {
     
     let service2: Service2
@@ -68,7 +93,5 @@ private struct Service1 {
     
 }
 
-private struct Service2 {
-    
-    
-}
+private struct Service2 { }
+private struct Service3 {}
