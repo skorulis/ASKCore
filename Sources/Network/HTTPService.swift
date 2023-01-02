@@ -29,12 +29,12 @@ public extension HTTPService {
     func execute<R: HTTPRequest>(request: R) async throws -> R.ResponseType {
         var urlRequest = try getURLRequest(req: request)
         try modify(request: &urlRequest)
-        logger?.log(request: urlRequest, level: .full)
+        logger?.log(request: urlRequest, level: nil)
         let result = try await urlSession.data(for: urlRequest)
         if let status = (result.1 as? HTTPURLResponse)?.statusCode, status >= 400 {
             throw URLError(.badServerResponse)
         }
-        logger?.log(response: result.1, data: result.0, level: .full)
+        logger?.log(response: result.1, data: result.0, level: nil)
         return try request.decode(data: result.0, response: result.1)
     }
     
