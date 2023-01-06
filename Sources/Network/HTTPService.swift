@@ -32,6 +32,7 @@ public extension HTTPService {
         logger?.log(request: urlRequest, level: nil)
         let result = try await urlSession.data(for: urlRequest)
         if let status = (result.1 as? HTTPURLResponse)?.statusCode, status >= 400 {
+            logger?.log(response: result.1, data: result.0, level: .errors)
             throw URLError(.badServerResponse)
         }
         logger?.log(response: result.1, data: result.0, level: nil)
