@@ -12,6 +12,9 @@ open class IOCService: PContainerFactory {
     public init(purpose: IOCPurpose) {
         container = Container()
         self.purpose = purpose
+        container.register(IOCPurpose.self) { _ in
+            return purpose
+        }
         
         let fac = container.register(GenericFactory.self) { [unowned self] res in
             return GenericFactory(container: self.container)
@@ -29,4 +32,11 @@ open class IOCService: PContainerFactory {
         return resolve(GenericFactory.self)
     }
     
+}
+
+public extension Container {
+    
+    var purpose: IOCPurpose {
+        return self.resolve(IOCPurpose.self)!
+    }
 }
