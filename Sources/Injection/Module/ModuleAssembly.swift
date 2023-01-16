@@ -39,3 +39,9 @@ public protocol ConcreteModuleAssembly: ModuleAssembly {
     static var implements: AbstractModuleAssembly.Type { get }
     
 }
+
+public extension Assembler {
+    var factory: PFactory {
+        return resolver.resolve(PFactory.self)!
+    }
+}
