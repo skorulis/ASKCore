@@ -14,4 +14,9 @@ public extension Date {
         return calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: calendar.startOfDay(for: self)))!
     }
     
+    func adding(days: Int) -> Date {
+        let components = DateComponents(day: days)
+        return Calendar.current.date(byAdding: components, to: self)!
+    }
+    
 }
