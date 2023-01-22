@@ -21,7 +21,7 @@ final class ModuleAssemblerTests: XCTestCase {
     }
     
     func test_abstract_assembly() {
-        let resolver = ModuleAssembler(moduleType: Assembly6.self).resolver
+        let resolver = ModuleAssembler(modules: [Assembly5(), Assembly6()]).resolver
         XCTAssertNotNil(resolver.resolve(Service3.self))
     }
 }
