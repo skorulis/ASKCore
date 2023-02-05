@@ -37,6 +37,6 @@ open class IOCService: PContainerFactory {
 public extension Container {
     
     var purpose: IOCPurpose {
-        return self.resolve(IOCPurpose.self)!
+        return self.resolve(IOCPurpose.self) ?? .testing
     }
 }
