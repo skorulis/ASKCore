@@ -26,11 +26,9 @@ public protocol AutoModuleAssembly: ModuleAssembly {
 public protocol AbstractModuleAssembly: ModuleAssembly {}
 
 extension AbstractModuleAssembly {
-    
     public func assemble(container: Container) {
         fatalError("Cannot assemble AbstractModuleAssembly")
     }
-    
 }
 
 /// Provides the assembly implementation for an AbstractModuleAssembly
