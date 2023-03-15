@@ -8,6 +8,7 @@ public protocol PKeyValueStore {
     func string(forKey: String) -> String?
     func set(_ value: Any?, forKey: String)
     func removeObject(forKey: String)
+    func double(forKey: String) -> Double
     
 }
 
@@ -33,6 +34,16 @@ public extension PKeyValueStore {
             return nil
         }
         return try JSONDecoder().decode(T.self, from: data)
+    }
+    
+    func date(forKey: String) -> Date? {
+        let seconds = self.double(forKey: forKey)
+        return Date(timeIntervalSince1970: seconds)
+    }
+    
+    func set(date: Date?, forKey: String) {
+        let seconds = date?.timeIntervalSince1970 ?? 0
+        self.set(seconds, forKey: forKey)
     }
     
 }

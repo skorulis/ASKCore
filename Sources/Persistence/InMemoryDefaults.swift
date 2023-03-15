@@ -31,5 +31,9 @@ extension InMemoryDefaults: PKeyValueStore {
         return storage[forKey] as? String
     }
     
+    public func double(forKey: String) -> Double {
+        return (storage[forKey] as? Double) ?? 0
+    }
+    
     
 }
