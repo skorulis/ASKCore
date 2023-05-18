@@ -16,4 +16,9 @@ public struct NullFactory: PFactory {
         fatalError("Cannot resolve from NullFactory")
     }
     
+    @MainActor
+    public func resolveMain<Service>(_ serviceType: Service.Type) -> Service {
+        fatalError("Cannot resolve from NullFactory")
+    }
+    
 }

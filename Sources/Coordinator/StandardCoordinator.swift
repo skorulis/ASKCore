@@ -67,4 +67,11 @@ extension StandardCoordinator: PFactory {
         return obj
     }
     
+    @MainActor
+    public func resolveMain<Service>(_ serviceType: Service.Type) -> Service {
+        let obj = factory.resolve(serviceType)
+        (obj as? CoordinatedViewModel)?.coordinator = self
+        return obj
+    }
+    
 }
