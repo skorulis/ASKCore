@@ -23,7 +23,9 @@ open class IOCService: PContainerFactory {
         container.register(PErrorService.self) { _ in ErrorService() }
             .inObjectScope(.container)
 #if canImport(UIKit)
-        container.autoregister(ErrorPresentationManager.self, initializer: ErrorPresentationManager.init)
+        container.register(ErrorPresentationManager.self) { resolver in 
+            ErrorPresentationManager(errorService: resolver.resolve(PErrorService.self)!)
+        }
 #endif
     }
     
