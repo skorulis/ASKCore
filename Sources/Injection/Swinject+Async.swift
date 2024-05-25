@@ -45,6 +45,21 @@ public extension Container {
     }
     
     @discardableResult
+    func registerMain<Service>(
+        _ service: Service.Type,
+        name: String? = nil,
+        factory: @escaping @MainActor (Resolver) -> Service
+    ) -> ServiceEntry<MainActorWrapper<Service>> {
+        registerMainError(service)
+        return self.register(MainActorWrapper<Service>.self, name: name, factory: { res in
+            let filled: @MainActor () -> Service = {
+                factory(res)
+            }
+            return MainActorWrapper<Service>(initializer: filled)
+        })
+    }
+    
+    @discardableResult
     func autoregisterMain<Service>(_ service: Service.Type, name: String? = nil, initializer: @escaping @MainActor () -> Service) -> ServiceEntry<MainActorWrapper<Service>> {
         registerMainError(service)
         return self.register(MainActorWrapper<Service>.self, name: name, factory: { res in
