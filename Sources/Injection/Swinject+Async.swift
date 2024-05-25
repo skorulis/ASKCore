@@ -1,13 +1,7 @@
-//
-//  Service.swift
-//  SwinjectTest
-//
 //  Created by Alexander Skorulis on 28/3/2023.
-//
 
 import Foundation
 import Swinject
-import SwinjectAutoregistration
 
 public extension Resolver {
     

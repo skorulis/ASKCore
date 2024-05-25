@@ -2,7 +2,6 @@
 
 import Foundation
 import Swinject
-import SwinjectAutoregistration
 
 open class IOCService: PContainerFactory {
     
@@ -21,7 +20,7 @@ open class IOCService: PContainerFactory {
         }
         container.forward(PFactory.self, to: fac)
         
-        container.autoregister(PErrorService.self, initializer: ErrorService.init)
+        container.register(PErrorService.self) { _ in ErrorService() }
             .inObjectScope(.container)
 #if canImport(UIKit)
         container.autoregister(ErrorPresentationManager.self, initializer: ErrorPresentationManager.init)

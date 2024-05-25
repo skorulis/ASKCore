@@ -15,15 +15,13 @@ let package = Package(
             targets: ["ASKCore"]),
     ],
     dependencies: [
-		.package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.1"),
-		.package(url: "https://github.com/Swinject/SwinjectAutoregistration.git", from: "2.8.1")
+		.package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.1")
     ],
     targets: [
         .target(
             name: "ASKCore",
             dependencies: [
-	            "Swinject",
-				"SwinjectAutoregistration"
+	            "Swinject"
             ],
             path: "Sources"
         ),
