@@ -8,6 +8,7 @@ public protocol PCoordinatedViewModel: AnyObject {
     var subscribers: Set<AnyCancellable> {get set}
 }
 
+@MainActor
 open class CoordinatedViewModel: PCoordinatedViewModel {
     public weak var coordinator: StandardCoordinator! {
         didSet {

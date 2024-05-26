@@ -7,13 +7,15 @@ public protocol PFactory {
     func resolve<Service>(_ serviceType: Service.Type) -> Service
     func resolve<Service, Arg1>(_ serviceType: Service.Type, argument: Arg1) -> Service
     
-    @MainActor
-    func resolveMain<Service>(_ serviceType: Service.Type) -> Service
-    
     func resolve<Service, Arg1, Arg2>(
         _ serviceType: Service.Type,
         arguments arg1: Arg1, _ arg2: Arg2
     ) -> Service
+}
+
+public protocol PMainFactory {
+    @MainActor
+    func resolve<Service>(_ serviceType: Service.Type) -> Service
 }
 
 public extension PFactory {
@@ -26,9 +28,11 @@ public extension PFactory {
         self.resolve([T].self)
     }
     
+}
+
+public extension PMainFactory {
     @MainActor
-    func resolveMain<Service>() -> Service {
-        return resolveMain(Service.self)
+    func resolve<Service>() -> Service {
+        return resolve(Service.self)
     }
-    
 }

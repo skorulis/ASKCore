@@ -38,7 +38,7 @@ public extension PContainerFactory {
     
     @MainActor
     func resolveMain<Service>(_ serviceType: Service.Type) -> Service {
-        guard let service = container.resolveMain(serviceType) else {
+        guard let service = container.main.resolve(serviceType) else {
             fatalError("Could not resolve \(serviceType)")
         }
         return service
