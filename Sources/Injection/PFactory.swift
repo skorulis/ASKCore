@@ -6,16 +6,26 @@ public protocol PFactory {
     
     func resolve<Service>(_ serviceType: Service.Type) -> Service
     func resolve<Service, Arg1>(_ serviceType: Service.Type, argument: Arg1) -> Service
-    
     func resolve<Service, Arg1, Arg2>(
         _ serviceType: Service.Type,
         arguments arg1: Arg1, _ arg2: Arg2
     ) -> Service
+    
+    var main: PMainFactory { get }
 }
 
 public protocol PMainFactory {
     @MainActor
     func resolve<Service>(_ serviceType: Service.Type) -> Service
+    
+    @MainActor
+    func resolve<Service, Arg1>(_ serviceType: Service.Type, argument: Arg1) -> Service
+    
+    @MainActor
+    func resolve<Service, Arg1, Arg2>(
+        _ serviceType: Service.Type,
+        arguments arg1: Arg1, _ arg2: Arg2
+    ) -> Service
 }
 
 public extension PFactory {

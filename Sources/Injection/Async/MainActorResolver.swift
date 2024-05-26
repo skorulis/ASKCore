@@ -35,7 +35,13 @@ public struct MainActorResolver: Resolver {
     
     @MainActor
     public func resolve<Service, Arg1>(_ serviceType: Service.Type, argument: Arg1) -> Service? {
-        fatalError()
+        guard mainRegistrations.isMainType(serviceType) else {
+            return baseResolver.resolve(Service.self)
+        }
+        guard let wrapper = baseResolver.resolve(MainActorWrapper<Service>.self) else {
+            fatalError("\(serviceType) must be resolved via main.resolve()")
+        }
+        return wrapper.initializer(argument)
     }
     
     @MainActor

@@ -30,7 +30,7 @@ public struct MainActorContainer {
     }
     
     @discardableResult
-    func register<Service>(
+    public func register<Service>(
         _ service: Service.Type,
         name: String? = nil,
         factory: @escaping @MainActor (Resolver) -> Service
@@ -45,7 +45,7 @@ public struct MainActorContainer {
     }
     
     @discardableResult
-    func register<Service, Arg1>(
+    public func register<Service, Arg1>(
         _ service: Service.Type,
         name: String? = nil,
         factory: @escaping @MainActor (Resolver, Arg1) -> Service
@@ -58,10 +58,24 @@ public struct MainActorContainer {
             return MainActorWrapper<Service>(initializer: filled)
         })
     }
+    
+    var resolver: MainActorResolver {
+        MainActorResolver(baseResolver: container)
+    }
 }
 
 extension Container {
     public var main: MainActorContainer {
         return MainActorContainer(container: self)
+    }
+}
+
+public final class MainActorWrapper<ServiceType> {
+    
+    var cache: ServiceType?
+    let initializer: @MainActor () -> ServiceType
+    
+    init(initializer: @escaping @MainActor () -> ServiceType) {
+        self.initializer = initializer
     }
 }

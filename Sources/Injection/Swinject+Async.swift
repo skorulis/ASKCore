@@ -2,17 +2,6 @@
 
 import Foundation
 import Swinject
-
-
-public final class MainActorWrapper<ServiceType> {
-    
-    var cache: ServiceType?
-    let initializer: @MainActor () -> ServiceType
-    
-    init(initializer: @escaping @MainActor () -> ServiceType) {
-        self.initializer = initializer
-    }
-}
  
 public extension Container {
     
