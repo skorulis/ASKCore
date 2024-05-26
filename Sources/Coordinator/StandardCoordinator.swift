@@ -47,28 +47,24 @@ public final class StandardCoordinator: PCoordinator, ObservableObject {
     
 }
 
-extension StandardCoordinator: PFactory {
+extension StandardCoordinator: PMainFactory {
     
+    @MainActor
     public func resolve<Service, Arg1>(_ serviceType: Service.Type, argument: Arg1) -> Service {
         let obj = factory.resolve(serviceType, argument: argument)
         (obj as? CoordinatedViewModel)?.coordinator = self
         return obj
     }
     
+    @MainActor
     public func resolve<Service, Arg1, Arg2>(_ serviceType: Service.Type, arguments arg1: Arg1, _ arg2: Arg2) -> Service {
         let obj = factory.resolve(serviceType, arguments: arg1, arg2)
         (obj as? CoordinatedViewModel)?.coordinator = self
         return obj
     }
     
-    public func resolve<Service>(_ serviceType: Service.Type) -> Service {
-        let obj = factory.resolve(serviceType)
-        (obj as? CoordinatedViewModel)?.coordinator = self
-        return obj
-    }
-    
     @MainActor
-    public func resolveMain<Service>(_ serviceType: Service.Type) -> Service {
+    public func resolve<Service>(_ serviceType: Service.Type) -> Service {
         let obj = factory.resolve(serviceType)
         (obj as? CoordinatedViewModel)?.coordinator = self
         return obj

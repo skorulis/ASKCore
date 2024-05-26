@@ -3,27 +3,6 @@
 import Foundation
 import Swinject
 
-public extension Resolver {
-    
-    @MainActor
-    func resolveMain<Service>(_ service: Service.Type) -> Service? {
-        guard let wrapper = self.resolve(MainActorWrapper<Service>.self) else {
-            return self.resolve(Service.self)
-        }
-        
-        if let cache = wrapper.cache {
-            return cache
-        }
-        let created = wrapper.initializer()
-        wrapper.cache = created
-        return created
-    }
-    
-    func resolveAsync<Service>(_ service: Service.Type) async -> Service? {
-        return await resolveMain(service)
-    }
-    
-}
 
 public final class MainActorWrapper<ServiceType> {
     
@@ -33,30 +12,14 @@ public final class MainActorWrapper<ServiceType> {
     init(initializer: @escaping @MainActor () -> ServiceType) {
         self.initializer = initializer
     }
-    
 }
  
 public extension Container {
     
     private func registerMainError<Service>(_ service: Service.Type) {
         register(Service.self) { _ in
-            fatalError("\(service) must be resolved via resolveMain")
+            fatalError("\(service) must be resolved via main.resolve()")
         }
-    }
-    
-    @discardableResult
-    func registerMain<Service>(
-        _ service: Service.Type,
-        name: String? = nil,
-        factory: @escaping @MainActor (Resolver) -> Service
-    ) -> ServiceEntry<MainActorWrapper<Service>> {
-        registerMainError(service)
-        return self.register(MainActorWrapper<Service>.self, name: name, factory: { res in
-            let filled: @MainActor () -> Service = {
-                factory(res)
-            }
-            return MainActorWrapper<Service>(initializer: filled)
-        })
     }
     
     @discardableResult
@@ -73,7 +36,7 @@ public extension Container {
         return self.register(MainActorWrapper<Service>.self, name: name, factory: { res in
             let filled: @MainActor () -> Service = {
                 return initializer(
-                    res.resolveMain(A.self)!
+                    res.main.resolve(A.self)!
                 )
             }
             return MainActorWrapper<Service>(initializer: filled)
@@ -85,8 +48,8 @@ public extension Container {
         return self.register(MainActorWrapper<Service>.self, name: name, factory: { res in
             let filled: @MainActor () -> Service = {
                 return initializer(
-                    res.resolveMain(A.self)!,
-                    res.resolveMain(B.self)!
+                    res.main.resolve(A.self)!,
+                    res.main.resolve(B.self)!
                 )
             }
             return MainActorWrapper<Service>(initializer: filled)
@@ -98,9 +61,9 @@ public extension Container {
         return self.register(MainActorWrapper<Service>.self, name: name, factory: { res in
             let filled: @MainActor () -> Service = {
                 return initializer(
-                    res.resolveMain(A.self)!,
-                    res.resolveMain(B.self)!,
-                    res.resolveMain(C.self)!
+                    res.main.resolve(A.self)!,
+                    res.main.resolve(B.self)!,
+                    res.main.resolve(C.self)!
                 )
             }
             return MainActorWrapper<Service>(initializer: filled)

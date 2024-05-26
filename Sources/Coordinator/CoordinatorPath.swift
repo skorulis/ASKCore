@@ -5,6 +5,7 @@ import SwiftUI
 
 public protocol CoordinatorPath {
     
+    @MainActor
     func render(in coordinator: any PCoordinator) -> AnyView
     
     var id: String { get }
@@ -14,11 +15,13 @@ public protocol BoundCoordinatorPath: CoordinatorPath {
     associatedtype CoordinatorType: PCoordinator
     associatedtype ViewType: View
     
+    @MainActor
     func render(coordinator: CoordinatorType) -> ViewType
 }
 
 extension BoundCoordinatorPath {
     
+    @MainActor
     public func render(in coordinator: any PCoordinator) -> AnyView {
         guard let typedCoord = coordinator as? CoordinatorType else {
             fatalError("Incorrect coordinator type")
@@ -46,6 +49,7 @@ public struct PathWrapper: Hashable {
         return lhs.path.id == rhs.path.id
     }
     
+    @MainActor
     func render(coordinator: any PCoordinator) -> some View {
         return path.render(in: coordinator)
             .environment(\.navigationType, navigation)
