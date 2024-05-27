@@ -45,4 +45,9 @@ public extension PMainFactory {
     func resolve<Service>() -> Service {
         return resolve(Service.self)
     }
+    
+    @MainActor
+    func resolve<Service, Arg1>(argument: Arg1) -> Service {
+        return resolve(Service.self, argument: argument)
+    }
 }

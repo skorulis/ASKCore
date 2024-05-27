@@ -38,10 +38,10 @@ public struct MainActorResolver: Resolver {
         guard mainRegistrations.isMainType(serviceType) else {
             return baseResolver.resolve(Service.self)
         }
-        guard let wrapper = baseResolver.resolve(MainActorWrapper<Service>.self) else {
+        guard let wrapper = baseResolver.resolve(MainActorWrapperArguments<Service, Arg1>.self) else {
             fatalError("\(serviceType) must be resolved via main.resolve()")
         }
-        return wrapper.initializer(argument)
+        return wrapper.initializer()
     }
     
     @MainActor

@@ -45,17 +45,16 @@ public struct MainActorContainer {
     }
     
     @discardableResult
-    public func register<Service, Arg1>(
+    public func register<Service, each Argument>(
         _ service: Service.Type,
         name: String? = nil,
-        factory: @escaping @MainActor (Resolver, Arg1) -> Service
-    ) -> ServiceEntry<MainActorWrapper<Service>> {
+        factory: @escaping @MainActor (Resolver, repeat each Argument) -> Service
+    ) -> ServiceEntry<MainActorWrapperArguments<Service, repeat each Argument>> {
         registerMainError(service)
-        return container.register(MainActorWrapper<Service>.self, name: name, factory: { res, arg1 in
-            let filled: @MainActor () -> Service = {
-                factory(res, arg1)
+        return container.register(MainActorWrapperArguments<Service, repeat each Argument>.self, name: name, factory: { res in
+            return MainActorWrapperArguments<Service, repeat each Argument> { (arguments: repeat each Argument) in
+                factory(res, repeat each arguments)
             }
-            return MainActorWrapper<Service>(initializer: filled)
         })
     }
     
@@ -76,6 +75,16 @@ public final class MainActorWrapper<ServiceType> {
     let initializer: @MainActor () -> ServiceType
     
     init(initializer: @escaping @MainActor () -> ServiceType) {
+        self.initializer = initializer
+    }
+}
+
+public final class MainActorWrapperArguments<ServiceType, each Argument> {
+    
+    var cache: ServiceType?
+    let initializer: @MainActor (repeat each Argument) -> ServiceType
+    
+    init(initializer: @escaping @MainActor (repeat each Argument) -> ServiceType) {
         self.initializer = initializer
     }
 }
