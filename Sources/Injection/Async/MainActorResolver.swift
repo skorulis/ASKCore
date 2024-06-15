@@ -3,7 +3,7 @@
 import Foundation
 import Swinject
 
-public struct MainActorResolver: Resolver {
+public struct MainActorResolver {
     
     private let baseResolver: Resolver
     private let mainRegistrations: MainRegistrationStore
@@ -34,99 +34,21 @@ public struct MainActorResolver: Resolver {
     }
     
     @MainActor
-    public func resolve<Service, Arg1>(_ serviceType: Service.Type, argument: Arg1) -> Service? {
+    public func resolve<Service, each Argument>(_ serviceType: Service.Type, arguments: repeat each Argument) -> Service? {
+        return resolve(serviceType, name: nil, arguments: repeat each arguments)
+    }
+    
+    @MainActor
+    public func resolve<Service, each Argument>(_ serviceType: Service.Type, name: String?, arguments: repeat each Argument) -> Service? {
         guard mainRegistrations.isMainType(serviceType) else {
             return baseResolver.resolve(Service.self)
         }
-        guard let wrapper = baseResolver.resolve(MainActorWrapperArguments<Service, Arg1>.self) else {
+        let type = MainActorWrapperArguments<Service, repeat each Argument>.self
+        guard let wrapper: MainActorWrapperArguments<Service, repeat each Argument> = baseResolver.resolve(type) else {
             fatalError("\(serviceType) must be resolved via main.resolve()")
         }
-        return wrapper.initializer()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1>(_ serviceType: Service.Type, name: String?, argument: Arg1) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2>(_ serviceType: Service.Type, arguments arg1: Arg1, _ arg2: Arg2) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2>(_ serviceType: Service.Type, name: String?, arguments arg1: Arg1, _ arg2: Arg2) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3>(_ serviceType: Service.Type, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3>(_ serviceType: Service.Type, name: String?, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3, Arg4>(_ serviceType: Service.Type, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3, Arg4>(_ serviceType: Service.Type, name: String?, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3, Arg4, Arg5>(_ serviceType: Service.Type, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3, Arg4, Arg5>(_ serviceType: Service.Type, name: String?, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6>(_ serviceType: Service.Type, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6>(_ serviceType: Service.Type, name: String?, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7>(_ serviceType: Service.Type, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7>(_ serviceType: Service.Type, name: String?, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8>(_ serviceType: Service.Type, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7, _ arg8: Arg8) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8>(_ serviceType: Service.Type, name: String?, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7, _ arg8: Arg8) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9>(_ serviceType: Service.Type, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7, _ arg8: Arg8, _ arg9: Arg9) -> Service? {
-        fatalError()
-    }
-    
-    @MainActor
-    public func resolve<Service, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9>(_ serviceType: Service.Type, name: String?, arguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7, _ arg8: Arg8, _ arg9: Arg9) -> Service? {
-        fatalError()
+        
+        return wrapper.initializer(repeat each arguments)
     }
 }
 

@@ -40,6 +40,14 @@ final class MainResolverTests: XCTestCase {
         XCTAssertNotNil(container.resolve(Service3.self))
         XCTAssertNotNil(container.main.resolve(Service2.self))
     }
+    
+    @MainActor
+    func test_register_main_argument() {
+        container.main.register(Service4.self) { resolver, arg1 in
+            Service4(id: arg1)
+        }
+        XCTAssertNotNil(container.main.resolve(Service4.self, arguments: "Test"))
+    }
 }
 
 @MainActor
@@ -52,3 +60,7 @@ private struct Service2 {
 }
 
 private struct Service3 {}
+
+private struct Service4 {
+    let id: String
+}
