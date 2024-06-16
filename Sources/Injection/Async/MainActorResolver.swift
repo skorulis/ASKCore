@@ -3,7 +3,7 @@
 import Foundation
 import Swinject
 
-public struct MainActorResolver {
+public struct MainActorResolver: ParameterPackResolver {
     
     private let baseResolver: Resolver
     private let mainRegistrations: MainRegistrationStore
