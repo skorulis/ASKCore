@@ -15,6 +15,16 @@ open class IOCService: PContainerFactory {
             return purpose
         }
         
+        container.register(PKeyValueStore.self) { _ in
+            switch purpose {
+            case .normal:
+                return UserDefaults.standard
+            case .testing:
+                return InMemoryDefaults()
+            }
+        }
+        .inObjectScope(.container)
+        
         let fac = container.register(GenericFactory.self) { [unowned self] res in
             return GenericFactory(container: self.container)
         }
