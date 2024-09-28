@@ -3,7 +3,7 @@
 import Foundation
 import Swinject
 
-public struct CoreModuleAssembly: ModuleAssembly, AutoModuleAssembly {
+public struct CoreModuleAssembly: Assembly {
 
     private let purpose: IOCPurpose
     
@@ -25,6 +25,5 @@ public struct CoreModuleAssembly: ModuleAssembly, AutoModuleAssembly {
         .implements(PFactory.self)
     }
     
-    public static var dependencies: [ModuleAssembly.Type] { [] }
     
 }
