@@ -10,14 +10,14 @@ public final class StandardCoordinator: PCoordinator, ObservableObject {
     @Published public var shouldDismiss: Bool = false
     public var analytics: PAnalyticsService?
     public let root: PathWrapper
-    let factory: PMainFactory
+    let factory: PFactory
     
-    public init(root: any CoordinatorPath, factory: PMainFactory) {
+    public init(root: any CoordinatorPath, factory: PFactory) {
         self.root = PathWrapper(path: root, navigation: nil)
         self.factory = factory
     }
     
-    public init(root: PathWrapper, factory: PMainFactory) {
+    public init(root: PathWrapper, factory: PFactory) {
         self.root = root
         self.factory = factory
     }

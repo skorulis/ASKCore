@@ -1,7 +1,7 @@
 //  Created by Alexander Skorulis on 31/7/2022.
 
 import Foundation
-import Swinject
+import Knit
 
 public final class InstanceAggregation<BaseType>: Behavior {
     private let isChild: (Any.Type) -> Bool

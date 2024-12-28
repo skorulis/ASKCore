@@ -1,7 +1,7 @@
 //  Created by Alexander Skorulis on 31/7/2022.
 
 import Foundation
-import Swinject
+import Knit
 
 extension ServiceEntry {
     

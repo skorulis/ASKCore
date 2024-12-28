@@ -1,7 +1,7 @@
 //  Created by Alexander Skorulis on 5/2/2023.
 
 import Foundation
-import Swinject
+import Knit
 
 public struct CoreModuleAssembly: Assembly {
 

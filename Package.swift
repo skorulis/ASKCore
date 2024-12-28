@@ -15,13 +15,13 @@ let package = Package(
             targets: ["ASKCore"]),
     ],
     dependencies: [
-		.package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.1")
+        .package(url: "https://github.com/cashapp/knit.git", branch: "skorulis/macros")
     ],
     targets: [
         .target(
             name: "ASKCore",
             dependencies: [
-	            "Swinject"
+                .product(name: "Knit", package: "knit")
             ],
             path: "Sources"
         ),

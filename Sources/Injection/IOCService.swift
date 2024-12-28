@@ -1,7 +1,7 @@
 //  Created by Alexander Skorulis on 28/8/21.
 
 import Foundation
-import Swinject
+import Knit
 
 open class IOCService: PContainerFactory {
     

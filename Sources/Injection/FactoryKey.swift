@@ -1,7 +1,7 @@
 //  Created by Alexander Skorulis on 27/6/2022.
 
 import SwiftUI
-import Swinject
+import Knit
 
 public struct FactoryKey: EnvironmentKey {
     public static var defaultValue: PFactory = NullFactory()

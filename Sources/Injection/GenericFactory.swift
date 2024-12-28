@@ -1,9 +1,9 @@
 //  Created by Alexander Skorulis on 16/5/21.
 
-import Swinject
+import Knit
 import Foundation
 
-public final class GenericFactory: PContainerFactory {
+public final class GenericFactory: PContainerFactory {    
     
     public let container: Container
     

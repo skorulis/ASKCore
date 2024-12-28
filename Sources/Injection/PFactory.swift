@@ -10,8 +10,6 @@ public protocol PFactory {
         _ serviceType: Service.Type,
         arguments arg1: Arg1, _ arg2: Arg2
     ) -> Service
-    
-    var main: PMainFactory { get }
 }
 
 public protocol PMainFactory {
