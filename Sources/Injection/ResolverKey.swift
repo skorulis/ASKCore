@@ -3,18 +3,6 @@
 import SwiftUI
 import Knit
 
-public struct FactoryKey: EnvironmentKey {
-    public static var defaultValue: PFactory = NullFactory()
-}
-
-public extension EnvironmentValues {
-    
-    var factory: PFactory {
-        get { self[FactoryKey.self] }
-        set { self[FactoryKey.self] = newValue }
-    }
-}
-
 public struct ResolverKey: EnvironmentKey {
     public static var defaultValue: Resolver = Container()
 }
