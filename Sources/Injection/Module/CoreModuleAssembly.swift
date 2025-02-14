@@ -3,7 +3,8 @@
 import Foundation
 import Knit
 
-public struct CoreModuleAssembly: Assembly {
+public struct CoreModuleAssembly: AutoInitModuleAssembly {
+    public typealias TargetResolver = Resolver
 
     private let purpose: IOCPurpose
     
@@ -25,5 +26,7 @@ public struct CoreModuleAssembly: Assembly {
         .implements(PFactory.self)
     }
     
+    
+    public static var dependencies: [any Knit.ModuleAssembly.Type] = []
     
 }
