@@ -4,13 +4,13 @@ import Combine
 import Foundation
 
 public protocol PCoordinatedViewModel: AnyObject {
-    var coordinator: StandardCoordinator! {get set}
+    var coordinator: ResolverCoordinator! {get set}
     var subscribers: Set<AnyCancellable> {get set}
 }
 
 @MainActor
 open class CoordinatedViewModel: PCoordinatedViewModel {
-    public weak var coordinator: StandardCoordinator! {
+    public weak var coordinator: ResolverCoordinator! {
         didSet {
             onCoordinatorSet()
         }

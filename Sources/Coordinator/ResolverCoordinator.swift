@@ -12,7 +12,7 @@ public final class ResolverCoordinator: PCoordinator, ObservableObject {
     @Published public var shouldDismiss: Bool = false
     public var analytics: PAnalyticsService?
     public let root: PathWrapper
-    let resolver: Resolver
+    public let resolver: Resolver
     
     public init(root: any CoordinatorPath, resolver: Resolver) {
         self.root = PathWrapper(path: root, navigation: nil)
