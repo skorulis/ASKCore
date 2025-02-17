@@ -8,22 +8,11 @@ open class IOCService: PContainerFactory {
     public let container: Container
     public let purpose: IOCPurpose
     
+    @MainActor
     public init(purpose: IOCPurpose) {
         container = Container()
+        CoreModuleAssembly(purpose: purpose).assemble(container: container)
         self.purpose = purpose
-        container.register(IOCPurpose.self) { _ in
-            return purpose
-        }
-        
-        container.register(PKeyValueStore.self) { _ in
-            switch purpose {
-            case .normal:
-                return UserDefaults.standard
-            case .testing:
-                return InMemoryDefaults()
-            }
-        }
-        .inObjectScope(.container)
         
         let fac = container.register(GenericFactory.self) { [unowned self] res in
             return GenericFactory(container: self.container)

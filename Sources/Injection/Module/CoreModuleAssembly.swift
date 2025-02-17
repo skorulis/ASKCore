@@ -20,10 +20,21 @@ public struct CoreModuleAssembly: AutoInitModuleAssembly {
         container.register(IOCPurpose.self) { _ in
             return purpose
         }
+        
         container.register(GenericFactory.self) { res in
             return GenericFactory(container: container)
         }
         .implements(PFactory.self)
+        
+        container.register(PKeyValueStore.self) { _ in
+            switch purpose {
+            case .normal:
+                return UserDefaults.standard
+            case .testing:
+                return InMemoryDefaults()
+            }
+        }
+        .inObjectScope(.container)
     }
     
     
