@@ -5,7 +5,7 @@ import Knit
 
 public final class InstanceAggregation<BaseType>: Behavior {
     private let isChild: (Any.Type) -> Bool
-    private var factories = [(Resolver) -> BaseType?]()
+    public private(set) var factories = [(Resolver) -> BaseType?]()
 
     public init(isChild: @escaping (Any.Type) -> Bool) {
         self.isChild = isChild
