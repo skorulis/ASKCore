@@ -16,15 +16,10 @@ public struct CoreModuleAssembly: AutoInitModuleAssembly {
         self.purpose = purpose
     }
     
-    public func assemble(container: Container) {
+    public func assemble(container: Container<Resolver>) {
         container.register(IOCPurpose.self) { _ in
             return purpose
         }
-        
-        container.register(GenericFactory.self) { res in
-            return GenericFactory(container: container)
-        }
-        .implements(PFactory.self)
         
         container.register(PKeyValueStore.self) { _ in
             switch purpose {
