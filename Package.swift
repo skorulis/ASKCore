@@ -23,7 +23,10 @@ let package = Package(
             dependencies: [
                 .product(name: "Knit", package: "knit")
             ],
-            path: "Sources"
+            path: "Sources",
+            plugins: [
+                .plugin(name: "KnitBuildPlugin", package: "knit")
+            ]
         ),
         .testTarget(
             name: "ASKCoreUnitTests",

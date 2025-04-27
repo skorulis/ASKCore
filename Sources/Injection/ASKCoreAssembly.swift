@@ -3,6 +3,7 @@
 import Foundation
 import Knit
 
+// @knit public
 public struct ASKCoreAssembly: AutoInitModuleAssembly {
     public typealias TargetResolver = Resolver
 

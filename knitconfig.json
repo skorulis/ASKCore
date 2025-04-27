@@ -1,5 +1,5 @@
 {
     "assemblyInputPaths": [
-        "Sources/Injection/CoreModuleAssembly.swift"
+        "Sources/Injection/ASKCoreAssembly.swift"
     ]
 }
