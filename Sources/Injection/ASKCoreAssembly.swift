@@ -3,7 +3,7 @@
 import Foundation
 import Knit
 
-public struct CoreModuleAssembly: AutoInitModuleAssembly {
+public struct ASKCoreAssembly: AutoInitModuleAssembly {
     public typealias TargetResolver = Resolver
 
     private let purpose: IOCPurpose

@@ -15,7 +15,7 @@ let package = Package(
             targets: ["ASKCore"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/cashapp/knit.git", exact: "2.0.1")
+        .package(url: "https://github.com/cashapp/knit.git", branch: "skorulis/spm-plugin")
     ],
     targets: [
         .target(
