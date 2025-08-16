@@ -1,10 +1,10 @@
 //  Created by Alexander Skorulis on 27/6/2022.
 
 import SwiftUI
-import Knit
+@preconcurrency import Knit
 
 public struct ResolverKey: EnvironmentKey {
-    public static var defaultValue: Resolver?
+    public static let defaultValue: Resolver? = nil
 }
 
 public extension EnvironmentValues {

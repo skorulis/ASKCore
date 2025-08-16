@@ -32,6 +32,7 @@ private final class ErrorPresentationController: UIAlertController {
     
 }
 
+@MainActor
 public final class ErrorPresentationManager {
     
     private let errorService: PErrorService
@@ -51,7 +52,9 @@ public final class ErrorPresentationManager {
             }
             
             if let error = errors.first, self.currentError == nil {
-                self.show(error: error)
+                Task { @MainActor in
+                    self.show(error: error)
+                }
             }
         }
         .store(in: &subscribers)

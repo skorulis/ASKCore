@@ -34,6 +34,6 @@ public struct ASKCoreAssembly: AutoInitModuleAssembly {
     }
     
     
-    public static var dependencies: [any Knit.ModuleAssembly.Type] = []
+    public static var dependencies: [any Knit.ModuleAssembly.Type] { [] }
     
 }

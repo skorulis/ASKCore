@@ -5,7 +5,7 @@ import Combine
 
 public final class ErrorService: PErrorService {
     
-    public var errorPublisher: PassthroughSubject<[IdentifiedError], Never> = .init()
+    public let errorPublisher: PassthroughSubject<[IdentifiedError], Never> = .init()
     
     public init() {}
     
