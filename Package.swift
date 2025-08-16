@@ -1,4 +1,4 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -15,7 +15,7 @@ let package = Package(
             targets: ["ASKCore"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/cashapp/knit.git", branch: "skorulis/spm-plugin")
+        .package(url: "https://github.com/cashapp/knit.git", branch: "skorulis/resolver-type")
     ],
     targets: [
         .target(
