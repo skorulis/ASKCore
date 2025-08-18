@@ -22,10 +22,8 @@ public struct HTTPJSONRequest<ResponseType>: HTTPRequest where ResponseType: Dec
     ) {
         self.endpoint = endpoint
         self.method = method
-        if let body = body {
-            self.body = try! JSONEncoder().encode(body)
-            self.headers["Content-Type"] = "application/json"
-        }
+        self.body = try! JSONEncoder().encode(body)
+        self.headers["Content-Type"] = "application/json"
     }
     
     public init(endpoint: String, formParams: [URLQueryItem]) {
