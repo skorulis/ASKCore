@@ -15,15 +15,20 @@ public struct HTTPJSONRequest<ResponseType>: HTTPRequest where ResponseType: Dec
         self.endpoint = endpoint
     }
     
-    init<RequestType: Encodable>(endpoint: String, body: RequestType?) {
+    public init<RequestType: Encodable>(
+        endpoint: String,
+        body: RequestType,
+        method: String = "POST"
+    ) {
         self.endpoint = endpoint
+        self.method = method
         if let body = body {
             self.body = try! JSONEncoder().encode(body)
             self.headers["Content-Type"] = "application/json"
         }
     }
     
-    init(endpoint: String, formParams: [URLQueryItem]) {
+    public init(endpoint: String, formParams: [URLQueryItem]) {
         self.endpoint = endpoint
         var urlComponents = URLComponents()
         urlComponents.queryItems = formParams
