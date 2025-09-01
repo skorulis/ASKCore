@@ -5,7 +5,7 @@ import Knit
 
 // @knit public
 public struct ASKCoreAssembly: AutoInitModuleAssembly {
-    public typealias TargetResolver = Resolver
+    public typealias TargetResolver = BaseResolver
 
     private let purpose: IOCPurpose
     
@@ -17,7 +17,7 @@ public struct ASKCoreAssembly: AutoInitModuleAssembly {
         self.purpose = purpose
     }
     
-    public func assemble(container: Container<Resolver>) {
+    public func assemble(container: Container<TargetResolver>) {
         container.register(IOCPurpose.self) { _ in
             return purpose
         }

@@ -15,7 +15,7 @@ let package = Package(
             targets: ["ASKCore"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/cashapp/knit.git", branch: "skorulis/resolver-type")
+        .package(url: "https://github.com/cashapp/knit.git", branch: "skorulis/resolver-class")
     ],
     targets: [
         .target(
