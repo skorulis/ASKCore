@@ -5,7 +5,7 @@ import Knit
 
 // @knit public
 public struct ASKCoreAssembly: AutoInitModuleAssembly {
-    public typealias TargetResolver = BaseResolver
+    public typealias TargetResolver = Resolver
 
     private let purpose: IOCPurpose
     

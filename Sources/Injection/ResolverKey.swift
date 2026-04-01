@@ -4,5 +4,5 @@ import SwiftUI
 @preconcurrency import Knit
 
 public extension EnvironmentValues {
-    @Entry var resolver: BaseResolver?
+    @Entry var resolver: Resolver?
 }

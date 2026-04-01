@@ -9,7 +9,7 @@ final class ASKCoreAssemblyTests: XCTestCase {
     
     @MainActor
     func test_resolution() {
-        let assembler = ScopedModuleAssembler<BaseResolver>([ASKCoreAssembly()])
+        let assembler = ScopedModuleAssembler<Resolver>([ASKCoreAssembly()])
         
         XCTAssertTrue(assembler.resolver.isAvailable)
         let keyValueStore = assembler.resolver.pKeyValueStore()
