@@ -4,18 +4,21 @@ import Foundation
 
 // MARK: - Memory footprint
 
+@MainActor
 open class HTTPService {
     
     private let baseURL: String?
     private let urlSession: URLSession
     private let logger: HTTPLogger?
     
+    @MainActor
     public init(baseURL: String? = nil, logger: HTTPLogger?) {
         self.baseURL = baseURL
         self.logger = logger
         urlSession = URLSession(configuration: .default)
     }
     
+    @MainActor
     open func modify(request: inout URLRequest) throws {
         // Default does nothing
     }
@@ -26,6 +29,7 @@ open class HTTPService {
 
 public extension HTTPService {
     
+    @MainActor
     func execute<R: HTTPRequest>(request: R) async throws -> R.ResponseType {
         var urlRequest = try getURLRequest(req: request)
         try modify(request: &urlRequest)
