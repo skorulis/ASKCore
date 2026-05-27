@@ -7,7 +7,8 @@ let package = Package(
     name: "ASKCore",
     platforms: [
         .macOS(.v15),
-        .iOS(.v17)
+        .iOS(.v17),
+        .tvOS(.v17),
     ],
     products: [
         .library(
