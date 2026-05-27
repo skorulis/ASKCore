@@ -16,7 +16,7 @@ let package = Package(
             targets: ["ASKCore"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/cashapp/knit.git", branch: "main")
+        .package(url: "https://github.com/skorulis/knit.git", branch: "ahead")
     ],
     targets: [
         .target(
