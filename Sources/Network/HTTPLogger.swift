@@ -78,9 +78,13 @@ extension HTTPLogger {
     private func dataText(data: Data?, isJSON: Bool) -> String {
         guard let data = data else { return "-"}
         if isJSON {
-            let object = try! JSONSerialization.jsonObject(with: data, options: [])
-            let data = try! JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted])
-            return String(data: data, encoding: .utf8)!
+            do {
+                let object = try JSONSerialization.jsonObject(with: data, options: [])
+                let data = try JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted])
+                return String(data: data, encoding: .utf8)!
+            } catch {
+                // Ignore the error, let it fall through to the case below
+            }
         }
         return String(data: data, encoding: .utf8) ?? "ERROR"
     }
