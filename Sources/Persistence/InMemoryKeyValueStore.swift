@@ -37,3 +37,5 @@ extension InMemoryKeyValueStore: PKeyValueStore {
     
     
 }
+
+extension InMemoryKeyValueStore: SecureKeyValueStore {}

@@ -31,6 +31,16 @@ public struct ASKCoreAssembly: AutoInitModuleAssembly {
             }
         }
         .inObjectScope(.container)
+        
+        container.register(SecureKeyValueStore.self) { _ in
+            switch purpose {
+            case .normal:
+                return RealSecureKeyValueStore(service: Bundle.main.bundleIdentifier ?? "ASKCore")
+            case .testing:
+                return InMemoryKeyValueStore()
+            }
+        }
+        .inObjectScope(.container)
     }
     
     

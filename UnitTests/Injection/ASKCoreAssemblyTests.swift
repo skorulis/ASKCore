@@ -14,6 +14,8 @@ final class ASKCoreAssemblyTests: XCTestCase {
         XCTAssertTrue(assembler.resolver.isAvailable)
         let keyValueStore = assembler.resolver.pKeyValueStore()
         XCTAssertTrue(keyValueStore is InMemoryKeyValueStore)
+        let secureStore = assembler.resolver.secureKeyValueStore()
+        XCTAssertTrue(secureStore is InMemoryKeyValueStore)
     }
 }
 
