@@ -13,7 +13,7 @@ final class ASKCoreAssemblyTests: XCTestCase {
         
         XCTAssertTrue(assembler.resolver.isAvailable)
         let keyValueStore = assembler.resolver.pKeyValueStore()
-        XCTAssertTrue(keyValueStore is InMemoryDefaults)
+        XCTAssertTrue(keyValueStore is InMemoryKeyValueStore)
     }
 }
 

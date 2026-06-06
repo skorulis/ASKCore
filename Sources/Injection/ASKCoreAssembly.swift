@@ -27,7 +27,7 @@ public struct ASKCoreAssembly: AutoInitModuleAssembly {
             case .normal:
                 return UserDefaults.standard
             case .testing:
-                return InMemoryDefaults()
+                return InMemoryKeyValueStore()
             }
         }
         .inObjectScope(.container)

@@ -2,7 +2,7 @@
 
 import Foundation
 
-public final class InMemoryDefaults {
+public final class InMemoryKeyValueStore {
     
     var storage: [String: Any] = [:]
     
@@ -10,7 +10,7 @@ public final class InMemoryDefaults {
     
 }
 
-extension InMemoryDefaults: PKeyValueStore {
+extension InMemoryKeyValueStore: PKeyValueStore {
     public func data(forKey: String) -> Data? {
         return storage[forKey] as? Data
     }
