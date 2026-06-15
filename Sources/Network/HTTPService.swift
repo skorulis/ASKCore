@@ -8,14 +8,18 @@ import Foundation
 open class HTTPService {
     
     private let baseURL: String?
-    private let urlSession: URLSession
+    private let urlSession: URLSessionProtocol
     private let logger: HTTPLogger?
     
     @MainActor
-    public init(baseURL: String? = nil, logger: HTTPLogger?) {
+    public init(
+        baseURL: String? = nil,
+        logger: HTTPLogger?,
+        urlSession: URLSessionProtocol = URLSession(configuration: .default)
+    ) {
         self.baseURL = baseURL
         self.logger = logger
-        urlSession = URLSession(configuration: .default)
+        self.urlSession = urlSession
     }
     
     @MainActor
