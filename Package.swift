@@ -16,17 +16,17 @@ let package = Package(
             targets: ["ASKCore"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/skorulis/knit.git", branch: "skorulis/ahead")
+        .package(url: "https://github.com/skorulis/ASKKnit.git", branch: "main")
     ],
     targets: [
         .target(
             name: "ASKCore",
             dependencies: [
-                .product(name: "Knit", package: "knit")
+                .product(name: "Knit", package: "ASKKnit")
             ],
             path: "Sources",
             plugins: [
-                .plugin(name: "KnitBuildPlugin", package: "knit")
+                .plugin(name: "KnitBuildPlugin", package: "ASKKnit")
             ]
         ),
         .testTarget(
